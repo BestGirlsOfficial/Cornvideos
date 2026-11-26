@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block body %}<h2>{{v.title}}</h2>
+<video src="/media/{{v.id}}" controls playsinline preload="metadata" controlslist="nodownload"></video>
+<p>{{v.descr}}</p><p>Beküldte: <a href="/profil/{{submitter.id}}">{{submitter.name}}</a></p>
+<form class="inline" method="post" action="/video/{{v.id}}/like"><input type="hidden" name="csrf" value="{{csrf}}"><button>{{ '♥ Tetszik' if liked else '♡ Lájk' }} ({{likes}})</button></form>
+<button type="button" onclick="navigator.clipboard.writeText(location.href).then(()=>this.textContent='Link kimásolva')">Megosztás</button>
+{% if user.is_admin %}<a href="/admin/video/{{v.id}}">Szerkesztés</a>{% endif %}
+<div class="card"><h3>Hozzászólások</h3>{% for c in comments %}<p><b>{{c.name}}:</b> {{c.body}}
+{% if user.is_admin or c.user == user.id %}<form class="inline" method="post" action="/komment/{{c.id}}/torles"><input type="hidden" name="csrf" value="{{csrf}}"><button>Törlés</button></form>{% endif %}</p>{% endfor %}
+<form method="post" action="/video/{{v.id}}/komment"><input type="hidden" name="csrf" value="{{csrf}}"><textarea name="body" maxlength="1000" required></textarea><button>Küldés</button></form></div>
+<form class="card" method="post" action="/video/{{v.id}}/bejelentes"><input type="hidden" name="csrf" value="{{csrf}}">
+<label>Videó bejelentése<select name="reason"><option value="other">Egyéb probléma</option><option value="consent">Hozzájárulás nélküli tartalom</option><option value="minor">Kiskorú gyanúja</option></select></label><button>Bejelentés</button></form>{% endblock %}

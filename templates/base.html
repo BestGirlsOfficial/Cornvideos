@@ -1,0 +1,17 @@
+<!doctype html><html lang="hu"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="rating" content="RTA-5042-1996-1400-1577-RTA">
+<title>Videótér 18+</title><style>
+body{margin:0;background:#121015;color:#eee;font:16px/1.5 system-ui,sans-serif}
+a{color:#ff8fa3}nav,main{max-width:760px;margin:auto;padding:12px 16px}
+nav{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.card{background:#1e1b24;border-radius:12px;padding:16px;margin:12px 0;overflow-wrap:anywhere}
+input,textarea,select{width:100%;box-sizing:border-box;background:#121015;color:#eee;border:1px solid #444;border-radius:8px;padding:9px;margin:4px 0 10px}
+input[type=checkbox]{width:auto;margin-right:6px}
+button{background:#e5486a;color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;margin:2px}
+form.inline{display:inline}video{width:100%;max-height:70vh;background:#000}.msg{background:#4a3a12;padding:10px;border-radius:8px}
+</style></head><body><nav><strong>Videótér 18+</strong>
+{% if user %}<a href="/">Hírfolyam</a><a href="/kovetett">Követett</a><a href="/feltoltes">{{ 'Feltöltés' if user.is_admin else 'Videó beküldése' }}</a>
+<a href="/profil/{{user.id}}">Profilom</a>{% if user.is_admin %}<a href="/admin">Admin</a>{% endif %}
+<form class="inline" method="post" action="/kilepes"><input type="hidden" name="csrf" value="{{csrf}}"><button>Kilépés</button></form>
+{% else %}<a href="/belepes">Belépés</a><a href="/regisztracio">Regisztráció</a>{% endif %}<a href="/szabalyzat">Szabályzat</a></nav>
+<main>{% for m in get_flashed_messages() %}<p class="msg">{{m}}</p>{% endfor %}{% block body %}{% endblock %}</main></body></html>

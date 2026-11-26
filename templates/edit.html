@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block body %}<h2>Szerkesztés</h2><video src="/media/{{v.id}}" controls preload="metadata"></video>
+<form class="card" method="post"><input type="hidden" name="csrf" value="{{csrf}}">
+<label>Cím<input name="title" value="{{v.title}}"></label><label>Leírás<textarea name="descr">{{v.descr}}</textarea></label>
+<p><label><input type="checkbox" name="verified">Ellenőriztem minden szereplő személyazonosságát, életkorát és írásos hozzájárulását.</label></p>
+<button name="action" value="save">Mentés</button><button name="action" value="publish">Közzététel</button>
+<button name="action" value="hide">Elrejtés</button><button name="action" value="delete" onclick="return confirm('Végleg törlöd?')">Törlés</button></form>{% endblock %}

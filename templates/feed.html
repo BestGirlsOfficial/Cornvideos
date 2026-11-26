@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block body %}<h2>{{title}}</h2>
+{% for v in videos %}<div class="card"><h3><a href="/video/{{v.id}}">{{v.title}}</a></h3><p>{{v.descr}}</p>
+<small>♥ {{v.likes}} · 💬 {{v.ncomments}} · {{v.created[:10]}}</small></div>{% else %}<p>Még nincs itt videó.</p>{% endfor %}{% endblock %}

@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block body %}<h2>{{p.name}}</h2><p>{{followers}} követő</p>
+{% if p.id != user.id %}<form method="post" action="/profil/{{p.id}}/kovetes"><input type="hidden" name="csrf" value="{{csrf}}"><button>{{ 'Követés leállítása' if following else 'Követés' }}</button></form>{% endif %}
+<h3>Közzétett videók</h3>{% for v in videos %}<div class="card"><a href="/video/{{v.id}}">{{v.title}}</a></div>{% else %}<p>Még nincs.</p>{% endfor %}
+{% if mine %}<h3>Beküldéseim állapota</h3>{% for v in mine %}<div class="card">{{v.title}}: {{ {'pending':'jóváhagyásra vár','published':'közzétéve','hidden':'elrejtve'}[v.status] }}</div>{% endfor %}{% endif %}{% endblock %}
